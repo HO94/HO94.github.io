@@ -2,9 +2,10 @@
 title: HO94
 feature_text: |
   ## Alembic
-  A Jekyll boilerplate theme designed to be a starting point for any Jekyll website
+  HO94's blog
 feature_image: "https://picsum.photos/1300/400?image=989"
-excerpt: "HO94's blog!"
+excerpt: Hi!
+
 ---
 
 Hi, I am HO94:)
