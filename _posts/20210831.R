@@ -1,4 +1,17 @@
-# ÆĞÅ°Áö ¼³Ä¡
+---
+title: Description of a Pot Still
+categories:
+- General
+excerpt: |
+  A pot still is a type of still used in distilling spirits such as whisky or brandy. Heat is applied directly to the pot containing the wash (for whisky) or wine (for brandy).
+feature_text: |
+  ## The Pot Still
+  The modern pot still is a descendant of the alembic, an earlier distillation device
+feature_image: "https://picsum.photos/2560/600?image=733"
+image: "https://picsum.photos/2560/600?image=733"
+---
+
+# íŒ¨í‚¤ì§€ ì„¤ì¹˜
 # install.packages("tidyverse")
 # install.packages("naniar")
 # install.packages("corrplot")
@@ -8,19 +21,19 @@ library(naniar)
 library(corrplot)
 library(writexl)
 
-# ÀÛ¾÷°ø°£ ¼³Á¤
+# ì‘ì—…ê³µê°„ ì„¤ì •
 getwd()
-setwd("d:/Study/DACON/ÇØ¿Ü Ãà±¸ ¼±¼ö ÀÌÀû·á ¿¹Ãø ¹Ì¼Ç/")
+setwd("d:/Study/DACON/í•´ì™¸ ì¶•êµ¬ ì„ ìˆ˜ ì´ì ë£Œ ì˜ˆì¸¡ ë¯¸ì…˜/")
 rm(list = ls())
 
 
-# µ¥ÀÌÅÍ ºÒ·¯¿À±â
+# ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
 train_dt   <- readr::read_csv("FIFA_train.csv")
 test_dt    <- readr::read_csv("FIFA_test.csv")
 submission <- readr::read_csv("submission.csv")
 
 
-# µ¥ÀÌÅÍ È®ÀÎ
+# ë°ì´í„° í™•ì¸
 # chr : name, continent, contract_until, position, prefer_foot
 # dbl : id, age, reputation, stat_overall, stat_potential, stat_skill_moves, value
 train_dt %>% 
@@ -29,14 +42,14 @@ train_dt %>%
 train_dt %>% 
   summary()
 
-# Áßº¹ È®ÀÎ
-# train_dt, test_dt, submission ¸ğµÎ Áßº¹ µ¥ÀÌÅÍ ¾øÀ½
+# ì¤‘ë³µ í™•ì¸
+# train_dt, test_dt, submission ëª¨ë‘ ì¤‘ë³µ ë°ì´í„° ì—†ìŒ
 train_dt[duplicated(train_dt),]
 test_dt[duplicated(test_dt),]
 submission[duplicated(submission),]
 
-# °áÃøÄ¡ È®ÀÎ
-# train_dt, test_dt, submission ¸ğµÎ °áÃøÄ¡ ¾øÀ½
+# ê²°ì¸¡ì¹˜ í™•ì¸
+# train_dt, test_dt, submission ëª¨ë‘ ê²°ì¸¡ì¹˜ ì—†ìŒ
 naniar::miss_var_summary(train_dt)
 naniar::miss_var_summary(test_dt)
 naniar::miss_var_summary(submission)
@@ -47,7 +60,7 @@ train_dt %>%
   dplyr::bind_rows(test_dt)-> full_dt
 
 
-# ¼öÄ¡Çü º¯¼ö ÀÌ»óÄ¡ È®ÀÎ
+# ìˆ˜ì¹˜í˜• ë³€ìˆ˜ ì´ìƒì¹˜ í™•ì¸
 # age, reputation, stat_overall, stat_potential, stat_skill_moves
 dbl_col = list("age", "reputation", "stat_overall", "stat_potential", "stat_skill_moves")
 
@@ -60,10 +73,10 @@ for(i in dbl_col){
   print(plot)
   
 }
-# ¹Ú½ºÇÃ·Ô¿¡¼­ ³ªÅ¸³­ ¼öÄ¡Çü º¯¼ö(³ªÀÌ, ¸í¼º, ´É·ÂÄ¡, ÀáÀç·Â, °³ÀÎ±â, °¡°İ)ÀÇ ÀÌ»óÄ¡ ¸ğµÎ
-# ÀÌ»óÄ¡°¡ ¾Æ´Ñ ¼±¼ö °£ Â÷ÀÌ°¡ Å« °ÍÀ¸·Î ÆÇ´Ü
+# ë°•ìŠ¤í”Œë¡¯ì—ì„œ ë‚˜íƒ€ë‚œ ìˆ˜ì¹˜í˜• ë³€ìˆ˜(ë‚˜ì´, ëª…ì„±, ëŠ¥ë ¥ì¹˜, ì ì¬ë ¥, ê°œì¸ê¸°, ê°€ê²©)ì˜ ì´ìƒì¹˜ ëª¨ë‘
+# ì´ìƒì¹˜ê°€ ì•„ë‹Œ ì„ ìˆ˜ ê°„ ì°¨ì´ê°€ í° ê²ƒìœ¼ë¡œ íŒë‹¨
 
-# º¯¼öµé°ú value °£ »ó°ü°ü°è È®ÀÎ
+# ë³€ìˆ˜ë“¤ê³¼ value ê°„ ìƒê´€ê´€ê³„ í™•ì¸
 full_dt %>% 
   ggplot2::ggplot(mapping = aes(x = age, y = value)) +
   ggplot2::geom_point()
@@ -77,31 +90,31 @@ for(i in dbl_col){
 }
 
 
-# ³ªÀÌ   : 20´ë Áß¹İ ~ 30´ë ÃÊ¹İ vaule°¡ ³ôÀ½
-# ¸í¼º   : ¸í¼ºÀÌ ³ôÀ¸¸é °¡°İÀÌ ³ôÁö¸¸, ¸í¼ºÀÌ ³ô¾Æµµ ³·Àº °¡°İÀÌ ÀÖÀ½
-# ´É·ÂÄ¡ : ¿ì»óÇâ
-# ÀáÀç·Â : ¿ì»óÇâ
-# °³ÀÎ±â : ÀüÃ¼ÀûÀ¸·Î ºñ½Á(¿µÇâÀÌ ÀûÀ½)
+# ë‚˜ì´   : 20ëŒ€ ì¤‘ë°˜ ~ 30ëŒ€ ì´ˆë°˜ vauleê°€ ë†’ìŒ
+# ëª…ì„±   : ëª…ì„±ì´ ë†’ìœ¼ë©´ ê°€ê²©ì´ ë†’ì§€ë§Œ, ëª…ì„±ì´ ë†’ì•„ë„ ë‚®ì€ ê°€ê²©ì´ ìˆìŒ
+# ëŠ¥ë ¥ì¹˜ : ìš°ìƒí–¥
+# ì ì¬ë ¥ : ìš°ìƒí–¥
+# ê°œì¸ê¸° : ì „ì²´ì ìœ¼ë¡œ ë¹„ìŠ·(ì˜í–¥ì´ ì ìŒ)
 
-# »ó°ü°ü°è È®ÀÎ
+# ìƒê´€ê´€ê³„ í™•ì¸
 full_dt %>%
   dplyr::filter(id == train_dt$id) %>% 
   dplyr::select(stat_overall, stat_potential,  age, reputation,  stat_skill_moves, value) %>% 
   cor() %>% 
   corrplot::corrplot(method = "square", order = "FPC", insig = "p-value")
-# value¿Í ´É·ÂÄ¡, ÀáÀç·Â, ¸í¼ºÀÇ »ó°ü°ü°è°¡ ³ô°Ô ³ªÅ¸³²
+# valueì™€ ëŠ¥ë ¥ì¹˜, ì ì¬ë ¥, ëª…ì„±ì˜ ìƒê´€ê´€ê³„ê°€ ë†’ê²Œ ë‚˜íƒ€ë‚¨
 
 
-# ³ªÀÌ ±¸°£
+# ë‚˜ì´ êµ¬ê°„
 full_dt %>% 
-  dplyr::mutate(age_group = ifelse(age < 20, "10´ë",
-                                   ifelse(age < 30, "20´ë",
-                                          ifelse(age < 40, "30´ë", "40´ëÀÌ»ó")))) %>% 
+  dplyr::mutate(age_group = ifelse(age < 20, "10ëŒ€",
+                                   ifelse(age < 30, "20ëŒ€",
+                                          ifelse(age < 40, "30ëŒ€", "40ëŒ€ì´ìƒ")))) %>% 
   dplyr::mutate(age_group = as.factor(age_group)) -> full_dt
 
 miss_var_summary(full_dt)
 
-# ³ªÀÌ ±¸°£ º° 
+# ë‚˜ì´ êµ¬ê°„ ë³„ 
 full_dt %>% 
   ggplot2::ggplot(mapping = aes(x = stat_potential, y = value, group = age_group)) +
   ggplot2::geom_line() + 
@@ -112,8 +125,8 @@ full_dt %>%
   ggplot2::geom_line() + 
   ggplot2::facet_wrap(~age_group)
 
-# ´ë·úº°
-# ´ë·ú factor
+# ëŒ€ë¥™ë³„
+# ëŒ€ë¥™ factor
 full_dt$continent <- factor(full_dt$continent, levels = c("asia", "europe", "south america",
                                                           "africa", "oceania"))
 
@@ -131,7 +144,7 @@ full_dt %>%
 
 
 
-# °è¾à±â°£
+# ê³„ì•½ê¸°ê°„
 full_dt$contract <- ifelse( nchar(full_dt$contract_until) <= 4, full_dt$contract_until,
                             ifelse("2018" %in% full_dt$contract_until, "2018",
                                    ifelse("2019", full_dt$contract_until, "2019",
@@ -139,20 +152,20 @@ full_dt$contract <- ifelse( nchar(full_dt$contract_until) <= 4, full_dt$contract
 
 full_dt$contract <- as.numeric(full_dt$contract)
 
-# 2017³â µ¥ÀÌÅÍ ±âÁØÀÌ¶ó °¡Á¤, ÀÜ¿© °è¾à 
+# 2017ë…„ ë°ì´í„° ê¸°ì¤€ì´ë¼ ê°€ì •, ì”ì—¬ ê³„ì•½ 
 full_dt$contract_left <- as.numeric(full_dt$contract - 2017)
 
 full_dt %>% 
   ggplot2::ggplot(mapping = aes(x = contract_left, y = value)) +
   ggplot2::geom_point()
 
-# position, prefer_foot º¯¼ö factor
+# position, prefer_foot ë³€ìˆ˜ factor
 full_dt$position    <- factor(full_dt$position)
 full_dt$prefer_foot <- factor(full_dt$prefer_foot)
 
 full_dt %>% glimpse()
 
-# »ç¿ëÇÒ º¯¼ö
+# ì‚¬ìš©í•  ë³€ìˆ˜
 # age, continent, position, prefer_foot, reputation,
 # stat_overall, stat_potential, stat_skill_moves,
 # contract_left
@@ -170,7 +183,7 @@ train_use %>%
 test_use %>% 
   dplyr::select(id, features, value) -> test_use
 
-# È¸±ÍºĞ¼®
+# íšŒê·€ë¶„ì„
 train_use %>% 
   dplyr::select(-id) %>% 
   lm(formula = value ~ .) -> lm_model
@@ -182,6 +195,6 @@ test_use %>%
   tibble::add_column("id" = test_dt$id, .before = 0) %>% 
   dplyr::rename("value" = ".") -> submission
 
-# ÀúÀå
+# ì €ì¥
 # submission %>% 
 #   write.csv("submission.csv", row.names = FALSE)
